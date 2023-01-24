@@ -14,6 +14,8 @@ namespace CalculadoraTest
 
         [Theory]
         [InlineData("1,2", 3)]
+        [InlineData("2,99", 101)]
+        [InlineData("1,4", 5)]
         public void Add_SendTwoNumbersSeparatedByComma_ReturnAddOfValues(string values, int expected)
         {
             var calculator = new Calculator();

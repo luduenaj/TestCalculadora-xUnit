@@ -38,28 +38,37 @@ namespace CalculadoraTest
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Add_SendNegativeNumber_ReturnException()
+        [Theory]
+        [InlineData("1,-3")]
+        [InlineData("1,1,-5")]
+        [InlineData("1,2,-91")]
+        public void Add_SendNegativeNumber_ReturnException(string values)
         {
             var calculator = new Calculator();
 
-            Assert.Throws<Exception>(() => calculator.Add("3,2,-3"));
+            Assert.Throws<Exception>(() => calculator.Add(values));
         }
 
-        [Fact]
-        public void Add_SendNumbersSeparatedByInvalidDelimiter_ReturnException()
+        [Theory]
+        [InlineData("1񳊱")]
+        [InlineData("1|2|3")]
+        [InlineData("9)9)8")]
+        public void Add_SendNumbersSeparatedByInvalidDelimiter_ReturnException(string values)
         {
             var calculator = new Calculator();
 
-            Assert.Throws<Exception>(() => calculator.Add("1|2|3"));
+            Assert.Throws<Exception>(() => calculator.Add(values));
         }
 
-        [Fact]
-        public void Add_SendInvalidCaracterSeparatedByComma_ReturnException()
+        [Theory]
+        [InlineData("1,a")]
+        [InlineData("1,2,3,b")]
+        [InlineData("1,4c")]
+        public void Add_SendInvalidCaracterSeparatedByComma_ReturnException(string values)
         {
             var calculator = new Calculator();
 
-            Assert.Throws<Exception>(() => calculator.Add("1,a"));
+            Assert.Throws<Exception>(() => calculator.Add(values));
         }
 
         [Theory]
